@@ -1,4 +1,3 @@
-let amPm;
 function displayDate() {
   const today = new Date();
   const dateDisplay = document.getElementById('date');
@@ -45,6 +44,8 @@ function displayTime() {
   let hour = dayNight(time.getHours());
   const minute = addLeadingZero(time.getMinutes());
   const second = addLeadingZero(time.getSeconds());
+  const isAm = hour < 12 || hour === 0;
+  let amPm = isAm ? 'AM' : 'PM';
 
   const timeString = `${dayNight(hour)}:${minute}:${second} ${amPm}`;
 
@@ -70,8 +71,6 @@ function addLeadingZero(number) {
 }
 
 function dayNight(hour) {
-  const isAm = hour < 12 || hour === 0;
-  amPm = isAm ? 'AM' : 'PM';
   hour = hour >= 13 ? hour - 12 : hour;
 
   hour = hour === 0 ? hour + 12 : hour;
@@ -81,4 +80,7 @@ function dayNight(hour) {
 displayTime();
 displayDate();
 
-setInterval(displayTime, 1000);
+setInterval(() => {
+  displayTime();
+  displayDate();
+}, 1000);
